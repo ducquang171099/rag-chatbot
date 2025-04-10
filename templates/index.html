@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RAG Chat UI</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+
+        #qa-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .qa-item {
+            margin-bottom: 20px;
+        }
+
+        .question {
+            font-weight: bold;
+            color: #0077cc;
+        }
+
+        .answer {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>RAG Chatbot</h2>
+    <input type="text" id="question-input" placeholder="Type your question..." style="width: 60%;">
+    <button onclick="askQuestion()">Ask</button>
+
+    <ul id="qa-list"></ul>
+
+    <script>
+        async function askQuestion() {
+            const input = document.getElementById("question-input");
+            const question = input.value;
+            if (!question.trim()) return;
+
+            const qaList = document.getElementById("qa-list");
+            const li = document.createElement("li");
+            li.className = "qa-item";
+            li.innerHTML = `<div class="question">🟢 You: ${question}</div><div class="answer">⌛ Thinking...</div>`;
+            qaList.insertBefore(li, qaList.firstChild); // show newest on top
+
+            const res = await fetch("/ask", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ question })
+            });
+            const data = await res.json();
+            console.log("🚀 ~ askQuestion ~ data:", data)
+            li.querySelector(".answer").innerText = "🤖 Bot: " + data;
+            input.value = "";
+        }
+    </script>
+</body>
+
+</html>
