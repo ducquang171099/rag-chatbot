@@ -1,4 +1,4 @@
-Banking Credit Chatbot
+# Banking Credit Chatbot
 ###
 RAG: Retrieval-Augmented Generation
 POC: Proof of concept
@@ -39,7 +39,7 @@ Inside a terminal, run the following:
 `pip install -r requirements.txt`
 
 * Create the Chroma Database
-`python traning_model.py`
+`python src/traning_model.py`
 
 * Run Web UI
-`streamlit run app.py`
+`streamlit run src/app.py`
