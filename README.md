@@ -42,4 +42,4 @@ Inside a terminal, run the following:
 `python traning_model.py`
 
 * Run Web UI
-`python run app.py`
+`streamlit run app.py`

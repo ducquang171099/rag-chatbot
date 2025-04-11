@@ -2,24 +2,26 @@ from langchain.prompts import ChatPromptTemplate
 from config import APP_CONFIG
 
 PROMPT_TEMPLATE = """
-Answer the question using only the following context:
+You are a helpful banking assistant.
+
+Answer the user's question using only the following context.
+
+If the context is not enough, say "I don't know based on the provided information".
+
+Be detailed and clear. Provide explanations if needed.
+
+Context:
 {context}
--------------------------------------------------------------
-Answer this question based on the context above: {question} 
+
+---
+
+Question: {question}
 """
 
 class Chatbot:
-    _instance = None
-
-    def __new__(cls, db, model):
-        if cls._instance is None:
-            cls._instance = super(Chatbot, cls).__new__(cls)
-        return cls._instance
-
     def __init__(self, db, model):
-        if not hasattr(self, 'initialized'):
-            self.db = db
-            self.model = model
+        self.db = db
+        self.model = model
 
     def greet(self):
         return "Hi, I'm Banking Credit Chatbot"
@@ -41,7 +43,6 @@ class Chatbot:
         print(prompt)
 
         # the LLM uses the prompt to answer the question
-        response_text = self.model.predict(prompt)
-        # response_text = ""
+        invoke_response = self.model.invoke(prompt)
 
-        return response_text
+        return invoke_response["response"]
