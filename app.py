@@ -1,21 +1,19 @@
 from flask import Flask, render_template, request, jsonify
-from query_data import chatbot_response
+from functions import chatbot_response
+from config import APP_CONFIG
 
-# Init Flask
-app = Flask(__name__)
-
+app = Flask(__name__, static_folder='templates')
 
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html")
+    return render_template(APP_CONFIG["UI_TEMPLATE"])
 
 @app.route("/ask", methods=["POST"])
 def ask():
     question = request.json["question"]
     response = chatbot_response(question)
-    print(response)
 
-    return jsonify(response)
+    return jsonify({ "answer": response })
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=APP_CONFIG["DEBUG"], port=APP_CONFIG["PORT"])

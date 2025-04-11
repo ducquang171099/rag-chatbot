@@ -1,4 +1,7 @@
-# Retrieval-Augmented Generation (RAG) Application
+Banking Credit Chatbot
+###
+RAG: Retrieval-Augmented Generation
+POC: Proof of concept
 ### Using
 - LangChain and OpenAI
 - Chroma
@@ -28,15 +31,15 @@ Before you begin, set up an OpenAI account and generate a new key. You will need
 
 ### Copy your documents (Optional)
 * Go to the `data` directory and add your document files in `.md` format.
-* Go to the `create_database.py` file and set the variable `DATA_PATH = "data"` or to the directory name where you will store data.
-  
+* Go to the `traning_model.py` file and set the variable `TRAINING_FOLDER_PATH = "/data"` or to the directory path where you will store data.
+
 ### Running the application
 Inside a terminal, run the following:
 * Install dependencies
 `pip install -r requirements.txt`
 
 * Create the Chroma Database
-`python create_database.py`
+`python traning_model.py`
 
-* Query the Chroma Database
-`python query_data.py "What operating systems does EC2 support"`
+* Run Web UI
+`python run app.py`
